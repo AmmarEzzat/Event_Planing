@@ -1,0 +1,37 @@
+class AppAssets {
+  static const String iconsBike = 'assets/icons/bike.png';
+  static const String iconsBookOpen = 'assets/icons/book-open.png';
+  static const String iconsCake = 'assets/icons/cake.png';
+  static const String iconsCompass = 'assets/icons/Compass.png';
+  static const String iconsEG = 'assets/icons/EG.png';
+  static const String iconsGoogle = 'assets/icons/google.png';
+  static const String iconsHeart = 'assets/icons/Heart.png';
+  static const String iconsHome = 'assets/icons/Home 1-1.png';
+  static const String iconsLR = 'assets/icons/LR.png';
+  static const String iconsLocationChoose = 'assets/icons/location_choose.png';
+  static const String iconsMapPin = 'assets/icons/Map_Pin.png';
+  static const String iconsUser01 = 'assets/icons/User_01.png';
+  static const String ChangeSetting = 'assets/images/change-setting.png';
+  static const String EventBirthday1 = 'assets/images/event_birthday-1.png';
+  static const String EventBookclub1 = 'assets/images/event_bookclub-1.png';
+  static const String EventEating1 = 'assets/images/event_eating-1.png';
+  static const String EventExhibition1 = 'assets/images/event_exhibition-1.png';
+  static const String EventGaming1 = 'assets/images/event_gaming-1.png';
+  static const String EventHoliday1 = 'assets/images/event_holiday-1.png';
+  static const String EventMeeting1 = 'assets/images/event_meeting-1.png';
+  static const String EventOnbrLight = 'assets/images/event_onbr_light.png';
+  static const String EventSport1 = 'assets/images/event_sport-1.png';
+  static const String EventWorkshop = 'assets/images/event_workshop.png';
+  static const String Iconlunch = 'assets/images/iconlunch.png';
+  static const String Logo = 'assets/images/Logo.png';
+  static const String Onbr1Dark = 'assets/images/onbr1_dark.png';
+  static const String Onbr1Light = 'assets/images/onbr1_light.png';
+  static const String Onbr2Dark = 'assets/images/onbr2_dark.png';
+  static const String Onbr2Light = 'assets/images/onbr2_light.png';
+  static const String Onbr3Dark = 'assets/images/onbr3_dark.png';
+  static const String Onbr3Light = 'assets/images/onbr3_light.png';
+  static const String Onbr4Dark = 'assets/images/onbr4_dark.png';
+  static const String Onbr4Light = 'assets/images/onbr4_light.png';
+  static const String Pranding = 'assets/images/pranding.png';
+  static const String SplashScreen = 'assets/images/splash_screen.png';
+}
