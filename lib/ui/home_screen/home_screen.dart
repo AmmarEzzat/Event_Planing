@@ -1,152 +1,102 @@
 import 'package:evently/l10n/app_localizations.dart';
-
-import 'package:evently/providers/app_language_provider.dart';
-import 'package:evently/providers/app_theme_provider.dart';
-import 'package:evently/ui/home_screen/language_bottom_sheet.dart';
-import 'package:evently/ui/home_screen/theme_bottom_sheet.dart';
+import 'package:evently/ui/home_screen/tabs/home/home_tab.dart';
+import 'package:evently/ui/home_screen/tabs/love/Favorite_Tab.dart';
+import 'package:evently/ui/home_screen/tabs/map/Map_Tab.dart';
+import 'package:evently/ui/home_screen/tabs/profile/profile_tab.dart';
 import 'package:evently/utils/app_Colors.dart';
-import 'package:evently/utils/app_Styles.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
+import '../../utils/app_assets.dart';
 
 class HomeScreen extends StatefulWidget {
-  static const String route ="HomeScreen";
-
-  const HomeScreen({super.key});
+  static const String route = "HomeScreen";
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Widget> tabs=[HomeTab(),MapTab(),FavoriteTab(),ProfileTab()];
+  int selectedIndex=0;
+
   @override
   Widget build(BuildContext context) {
-    var languageprovider=Provider.of<AppLanguageProvider>(context);
-    var themeprovider=Provider.of<AppThemeProvider>(context);
-    var height=MediaQuery.of(context).size.height;
     return Scaffold(
+      bottomNavigationBar:
+      Theme(
+        data: Theme.of(
+          context,
+        ).copyWith(canvasColor:AppColors.transparentColor),
+        child:
+        BottomAppBar(padding: EdgeInsets.zero,
+          color: Theme.of(context).primaryColor,
+          notchMargin: 3,shape: CircularNotchedRectangle(),
+          child: BottomNavigationBar(
+            currentIndex: selectedIndex,
+            onTap: (index){
+              selectedIndex=index;
+              setState(() {
 
-appBar:  AppBar(
-
-  backgroundColor: AppColors.primaryLight,
-
-
-),
-
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-
-            Text(AppLocalizations.of(context)!.language,style: AppStyles.bold20black,),
-
-
-SizedBox(height:height*0.02),
-
-          InkWell(
-            onTap: (){
-              ShowLanguageBottomSheet();
-
-
+              });
             },
 
-            child: Container(
-            padding: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
-              decoration: BoxDecoration(
+            items: [
+              buildBottomNabItems(
+                index: 0,
 
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: AppColors.primaryLight,width: 2
-                ),
+
+                iconSelectedName: AppAssets.HomeSelected,
+                iconName: AppAssets.iconsHome,
+                label: AppLocalizations.of(context)!.home,
+              ),
+              buildBottomNabItems(
+                index:1,
+                iconSelectedName: AppAssets.MapPinSelected,
+                iconName: AppAssets.iconsMapPin,
+                label: AppLocalizations.of(context)!.map,
+              ),
+              buildBottomNabItems(
+                index: 2,
+                iconSelectedName: AppAssets.HeartSelected,
+                iconName: AppAssets.iconsHeart,
+                label: AppLocalizations.of(context)!.love,
+              ),
+              buildBottomNabItems(
+                index: 3,
+                iconSelectedName: AppAssets.UserSelected,
+                iconName: AppAssets.iconsUser01,
+                label: AppLocalizations.of(context)!.profile,
+
 
               ),
 
-                child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-
-                    Text(
-
-
-                        languageprovider.appLanguage=="en"?
-                            AppLocalizations.of(context)!.english:
-                        AppLocalizations.of(context)!.arabic
-                        ,style:AppStyles.bold20Primary),
-
-                    Icon(Icons.arrow_drop_down_sharp,color: AppColors.primaryLight,size: 38,)
-                  ],
-
-
-                )
-
-            ),
+            ],
           ),
-
-
-            SizedBox(height:height*0.02),
-
-            Text(AppLocalizations.of(context)!.theme,style: AppStyles.bold20black,),
-
-
-            SizedBox(height:height*0.02),
-
-            InkWell(
-              onTap: (){
-                ShowThemeBottomSheet();
-
-
-              },
-
-              child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
-                  decoration: BoxDecoration(
-
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: AppColors.primaryLight,width: 2
-                    ),
-
-                  ),
-
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-
-                      Text(
-
-
-                          themeprovider.appTheme==ThemeMode.light?
-
-                          (AppLocalizations.of(context)!.light):
-                         ( AppLocalizations.of(context)!.dark)
-                          ,style:AppStyles.bold20Primary),
-
-                      Icon(Icons.arrow_drop_down_sharp,color: AppColors.primaryLight,size: 38,)
-                    ],
-
-
-                  )
-
-              ),
-            ),
-
-          ],
-
-
         ),
-      ),
 
+      ),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        //navigate to add event screen
+        //add event
+
+      },
+      child: Icon(Icons.add ,color: AppColors.whiteColor,),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+body: tabs[selectedIndex],
     );
   }
 
-  void ShowLanguageBottomSheet() {
-    showModalBottomSheet(context: context, builder:(context) => LanguageBottomSheet(), );
+  BottomNavigationBarItem buildBottomNabItems({
+    required int index,
+    required String iconSelectedName,
+    required String label,
+required String iconName,
+  }) {
+    return BottomNavigationBarItem(
+      icon: ImageIcon(AssetImage(selectedIndex==index?iconSelectedName:iconName)),
 
+      label: label,
+    );
   }
-
-  void ShowThemeBottomSheet() {
- showModalBottomSheet(context: context, builder: (context)=> ThemeBottomSheet(),);
-
-
-  }
-
 }

@@ -397,6 +397,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Update Event'**
   String get updateEvent;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @map.
+  ///
+  /// In en, this message translates to:
+  /// **'Map'**
+  String get map;
+
+  /// No description provided for @love.
+  ///
+  /// In en, this message translates to:
+  /// **'Love'**
+  String get love;
+
+  /// No description provided for @profile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profile;
 }
 
 class _AppLocalizationsDelegate

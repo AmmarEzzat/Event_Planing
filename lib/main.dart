@@ -1,11 +1,12 @@
 import 'package:evently/providers/app_language_provider.dart';
 import 'package:evently/providers/app_theme_provider.dart';
+import 'package:evently/ui/home_screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'l10n/app_localizations.dart';
 
 import 'package:evently/splash_screen.dart';
-import 'package:evently/ui/home_screen/home_screen.dart';
+import 'package:evently/ui/home_screen/tabs/profile/profile_tab.dart';
 import 'package:evently/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -36,8 +37,10 @@ class MyApp extends StatelessWidget {
       initialRoute: HomeScreen.route,
 
       routes: {
+        HomeScreen.route: (context) => HomeScreen(),
+
         Splash.route: (context) => const Splash(),
-        HomeScreen.route:(context)=>HomeScreen(),
+        ProfileTab.route:(context)=>ProfileTab(),
 
       },
 

@@ -48,5 +48,9 @@
   "tapOnLocationToSelect": "Tap On Location To Select",
   "eventDetails": "Event Details",
   "editEvent": "Edit Event",
-  "updateEvent": "Update Event"
+  "updateEvent": "Update Event",
+  "home": "Home",
+  "map": "Map",
+  "love": "Love",
+  "profile": "Profile"
 }

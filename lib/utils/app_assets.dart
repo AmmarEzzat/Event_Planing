@@ -9,7 +9,7 @@ class AppAssets {
   static const String iconsHome = 'assets/icons/Home 1-1.png';
   static const String iconsLR = 'assets/icons/LR.png';
   static const String iconsLocationChoose = 'assets/icons/location_choose.png';
-  static const String iconsMapPin = 'assets/icons/Map_Pin.png';
+  static const String iconsMapPin = 'assets/icons/Map_Pin-1.png';
   static const String iconsUser01 = 'assets/icons/User_01.png';
   static const String ChangeSetting = 'assets/images/change-setting.png';
   static const String EventBirthday1 = 'assets/images/event_birthday-1.png';
@@ -34,4 +34,9 @@ class AppAssets {
   static const String Onbr4Light = 'assets/images/onbr4_light.png';
   static const String Pranding = 'assets/images/pranding.png';
   static const String SplashScreen = 'assets/images/splash_screen.png';
+  static const String HeartSelected='assets/icons/Heart_Selected (1).png';
+  static const String HomeSelected='assets/icons/Home 1_Selected (1).png';
+  static const String MapPinSelected='assets/icons/Map_Pin_Selected.png';
+  static const String UserSelected='assets/icons/User_01_Selected (1).png';
+
 }

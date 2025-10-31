@@ -161,4 +161,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get updateEvent => 'تحديث الفعالية';
+
+  @override
+  String get home => 'الرئيسية';
+
+  @override
+  String get map => 'الخريطة';
+
+  @override
+  String get love => 'المفضل';
+
+  @override
+  String get profile => 'الملف الشخصي';
 }

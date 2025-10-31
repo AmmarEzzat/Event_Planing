@@ -15,4 +15,5 @@ class AppColors {
   static const transparentColor=Colors.transparent;
 
 
+
 }

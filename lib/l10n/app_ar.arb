@@ -48,5 +48,9 @@
   "tapOnLocationToSelect": "اضغط على الموقع للاختيار",
   "eventDetails": "تفاصيل الفعالية",
   "editEvent": "تعديل الفعالية",
-  "updateEvent": "تحديث الفعالية"
+  "updateEvent": "تحديث الفعالية",
+  "home": "الرئيسية",
+  "map": "الخريطة",
+  "love": "المفضل",
+  "profile": "الملف الشخصي"
 }
