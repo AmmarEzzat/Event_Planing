@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:evently/ui/home_screen/home_screen.dart';
 import 'package:evently/ui/home_screen/tabs/profile/profile_tab.dart';
 import 'package:evently/utils/app_assets.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class _SplashScreenState extends State<Splash> {
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const ProfileTab()),
+        MaterialPageRoute(builder: (context) =>  HomeScreen()),
       );
     });
   }

@@ -27,7 +27,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get light => 'Light';
 
   @override
-  String get forgetPassword => 'Forget Password';
+  String get forgetPassword => 'Forget Password?';
 
   @override
   String get email => 'Email';
@@ -39,7 +39,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get login => 'Login';
 
   @override
-  String get dontHaveAccount => 'Don’t Have Account';
+  String get dontHaveAccount => 'Don’t Have Account?';
 
   @override
   String get createAccount => 'Create Account';
@@ -57,7 +57,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get rePassword => 'Re Password';
 
   @override
-  String get alreadyHaveAccount => 'Already Have Account';
+  String get alreadyHaveAccount => 'Already Have Account?';
 
   @override
   String get resetPassword => 'Reset Password';
@@ -173,4 +173,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profile => 'Profile';
+
+  @override
+  String get cairo => 'Cairo';
+
+  @override
+  String get egypt => 'Egypt';
+
+  @override
+  String get en => 'En';
+
+  @override
+  String get ar => 'Ar';
+
+  @override
+  String get workshop => 'WorkShop';
+
+  @override
+  String get searchforevent => 'Search for Event';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get createevent => 'Create Event';
 }

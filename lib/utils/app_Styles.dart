@@ -50,6 +50,11 @@ class AppStyles {
     color: AppColors.whiteColor,
     fontSize: 12,
   );
+  static TextStyle medium14white = GoogleFonts.inter(
+    fontWeight: FontWeight.w700,
+    color: AppColors.whiteColor,
+    fontSize: 14,
+  );
   static TextStyle bold20black = GoogleFonts.inter(
     fontWeight: FontWeight.bold,
     color: AppColors.blackColor,

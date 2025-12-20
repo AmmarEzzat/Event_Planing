@@ -23,6 +23,7 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData(
     // scaffoldBackgroundColor: AppColors.primaryDark,
     primaryColor: AppColors.primaryDark,
+
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 50,
       showUnselectedLabels: true,

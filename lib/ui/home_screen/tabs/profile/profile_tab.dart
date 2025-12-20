@@ -6,6 +6,8 @@ import 'package:evently/ui/home_screen/language_bottom_sheet.dart';
 import 'package:evently/ui/home_screen/theme_bottom_sheet.dart';
 import 'package:evently/utils/app_Colors.dart';
 import 'package:evently/utils/app_Styles.dart';
+import 'package:evently/utils/app_assets.dart';
+import 'package:evently/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,100 +26,93 @@ class _ProfileTabState extends State<ProfileTab> {
     var languageprovider=Provider.of<AppLanguageProvider>(context);
     var themeprovider=Provider.of<AppThemeProvider>(context);
     var height=MediaQuery.of(context).size.height;
-    return Scaffold(
-
-appBar:  AppBar(
-
-  backgroundColor: AppColors.primaryLight,
+    var width=MediaQuery.of(context).size.width;
 
 
-),
+    return Column(
+      children: [
+        Container(
 
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+padding: EdgeInsets.only(top: height*0.07,bottom: width*0.03,),
+          height: height*0.25,
 
-            Text(AppLocalizations.of(context)!.language,style: AppStyles.bold20black,),
-
-
-SizedBox(height:height*0.02),
-
-          InkWell(
-            onTap: (){
-              ShowLanguageBottomSheet();
+          decoration: BoxDecoration(
+            color: AppColors.primaryLight,
+      borderRadius: BorderRadius.only(bottomLeft: Radius.circular(70)),
 
 
-            },
 
-            child: Container(
-            padding: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
-              decoration: BoxDecoration(
-
-                borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: AppColors.primaryLight,width: 2
-                ),
-
-              ),
-
-                child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-
-                    Text(
-
-
-                        languageprovider.appLanguage=="en"?
-                            AppLocalizations.of(context)!.english:
-                        AppLocalizations.of(context)!.arabic
-                        ,style:AppStyles.bold20Primary),
-
-                    Icon(Icons.arrow_drop_down_sharp,color: AppColors.primaryLight,size: 38,)
-                  ],
-
-
-                )
-
-            ),
           ),
+        child: Row(
+
+    children: [
+
+        CircleAvatar(
+      radius: width*0.2,
+
+      backgroundColor: AppColors.primaryLight,
+
+      child: Image.asset(AppAssets.route ,filterQuality: FilterQuality.high,
+        )
+
+        ),
+    Expanded(
+      child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Ammar Ezzat",style: AppStyles.bold24white,),
+
+        Text("marzt088@gmail.com",style: AppStyles.semi16white,)
+      ]
 
 
-            SizedBox(height:height*0.02),
+      ),
+    ),
 
-            Text(AppLocalizations.of(context)!.theme,style: AppStyles.bold20black,),
+
+    ],
+
+        ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              Text(AppLocalizations.of(context)!.language,style: AppStyles.bold20black,),
 
 
-            SizedBox(height:height*0.02),
+          SizedBox(height:height*0.02),
 
             InkWell(
               onTap: (){
-                ShowThemeBottomSheet();
+                ShowLanguageBottomSheet();
 
 
               },
 
               child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
-                  decoration: BoxDecoration(
+              padding: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+                decoration: BoxDecoration(
 
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: AppColors.primaryLight,width: 2
-                    ),
-
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: AppColors.primaryLight,width: 2
                   ),
 
+                ),
+
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
 
                       Text(
 
 
-                          themeprovider.appTheme==ThemeMode.light?
-
-                          (AppLocalizations.of(context)!.light):
-                         ( AppLocalizations.of(context)!.dark)
+                          languageprovider.appLanguage=="en"?
+                              AppLocalizations.of(context)!.english:
+                          AppLocalizations.of(context)!.arabic
                           ,style:AppStyles.bold20Primary),
 
                       Icon(Icons.arrow_drop_down_sharp,color: AppColors.primaryLight,size: 38,)
@@ -129,12 +124,96 @@ SizedBox(height:height*0.02),
               ),
             ),
 
-          ],
+
+              SizedBox(height:height*0.02),
+
+              Text(AppLocalizations.of(context)!.theme,style: AppStyles.bold20black,),
 
 
+              SizedBox(height:height*0.02),
+
+              InkWell(
+                onTap: (){
+                  ShowThemeBottomSheet();
+
+
+                },
+
+                child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 16,horizontal: 8),
+                    decoration: BoxDecoration(
+
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: AppColors.primaryLight,width: 2
+                      ),
+
+                    ),
+
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+
+                        Text(
+
+
+                            themeprovider.appTheme==ThemeMode.light?
+
+                            (AppLocalizations.of(context)!.light):
+                           ( AppLocalizations.of(context)!.dark)
+                            ,style:AppStyles.bold20Primary),
+
+                        Icon(Icons.arrow_drop_down_sharp,color: AppColors.primaryLight,size: 38,)
+                      ],
+
+
+                    )
+
+                ),
+              ),
+
+            ],
+
+
+          ),
         ),
-      ),
+Spacer(),
 
+
+
+Padding(padding:
+EdgeInsetsGeometry.symmetric(
+horizontal: width*0.03,
+  vertical: height*0.04
+
+),
+child: ElevatedButton(
+  style:ElevatedButton.styleFrom(
+
+      backgroundColor: AppColors.redColor,
+      padding: EdgeInsets.symmetric(horizontal: width*0.03,vertical: height*0.02),
+      shape: RoundedRectangleBorder(
+
+          borderRadius: BorderRadiusGeometry.circular(20)
+
+      )
+  ) ,
+  onPressed: (){},
+  child: Row(
+    spacing: 6,
+    children: [
+
+
+      Icon(Icons.logout,color: AppColors.whiteColor,size: 25,),
+
+      Text(AppLocalizations.of(context)!.logout,style: AppStyles.semi20white,)
+    ],
+  ),
+),)
+
+
+
+
+      ],
     );
   }
 

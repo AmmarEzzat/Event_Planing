@@ -1,6 +1,10 @@
+import 'package:evently/auth/forget_password/forget_password.dart';
+import 'package:evently/auth/login/login_screen.dart';
+import 'package:evently/auth/register/register_screen.dart';
 import 'package:evently/providers/app_language_provider.dart';
 import 'package:evently/providers/app_theme_provider.dart';
 import 'package:evently/ui/home_screen/home_screen.dart';
+import 'package:evently/ui/home_screen/tabs/home/add_event/add_event.dart';
 import 'package:provider/provider.dart';
 
 import 'l10n/app_localizations.dart';
@@ -34,12 +38,19 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       locale: Locale(languageprovider.appLanguage),
-      initialRoute: HomeScreen.route,
+      initialRoute: LoginScreen.route,
 
       routes: {
-        HomeScreen.route: (context) => HomeScreen(),
-
+        LoginScreen.route:(context)=>LoginScreen(),
+        RegisterScreen.route:(context)=>RegisterScreen(),
         Splash.route: (context) => const Splash(),
+        HomeScreen.route: (context) => HomeScreen(),
+        AddEvent.route: (context) => AddEvent(),
+        ForgetPassword.route: (context) => ForgetPassword(),
+
+
+
+
         ProfileTab.route:(context)=>ProfileTab(),
 
       },

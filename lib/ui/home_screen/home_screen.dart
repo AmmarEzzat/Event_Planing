@@ -1,4 +1,5 @@
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/ui/home_screen/tabs/home/add_event/add_event.dart';
 import 'package:evently/ui/home_screen/tabs/home/home_tab.dart';
 import 'package:evently/ui/home_screen/tabs/love/Favorite_Tab.dart';
 import 'package:evently/ui/home_screen/tabs/map/Map_Tab.dart';
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       bottomNavigationBar:
       Theme(
         data: Theme.of(
@@ -76,14 +78,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
       ),
       floatingActionButton: FloatingActionButton(onPressed: (){
-        //navigate to add event screen
-        //add event
 
+Navigator.of(context).pushNamed(AddEvent.route);
       },
       child: Icon(Icons.add ,color: AppColors.whiteColor,),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 body: tabs[selectedIndex],
+
+
     );
   }
 

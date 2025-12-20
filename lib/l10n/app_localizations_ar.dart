@@ -173,4 +173,28 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get profile => 'الملف الشخصي';
+
+  @override
+  String get cairo => 'القاهرة';
+
+  @override
+  String get egypt => 'مصر';
+
+  @override
+  String get en => 'انجليزي';
+
+  @override
+  String get ar => 'عربي';
+
+  @override
+  String get workshop => 'ورشة عمل';
+
+  @override
+  String get searchforevent => 'البحث عن الحدث';
+
+  @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get createevent => 'انشاء حدث';
 }

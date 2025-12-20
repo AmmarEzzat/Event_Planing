@@ -137,7 +137,7 @@ abstract class AppLocalizations {
   /// No description provided for @forgetPassword.
   ///
   /// In en, this message translates to:
-  /// **'Forget Password'**
+  /// **'Forget Password?'**
   String get forgetPassword;
 
   /// No description provided for @email.
@@ -161,7 +161,7 @@ abstract class AppLocalizations {
   /// No description provided for @dontHaveAccount.
   ///
   /// In en, this message translates to:
-  /// **'Don’t Have Account'**
+  /// **'Don’t Have Account?'**
   String get dontHaveAccount;
 
   /// No description provided for @createAccount.
@@ -197,7 +197,7 @@ abstract class AppLocalizations {
   /// No description provided for @alreadyHaveAccount.
   ///
   /// In en, this message translates to:
-  /// **'Already Have Account'**
+  /// **'Already Have Account?'**
   String get alreadyHaveAccount;
 
   /// No description provided for @resetPassword.
@@ -421,6 +421,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Profile'**
   String get profile;
+
+  /// No description provided for @cairo.
+  ///
+  /// In en, this message translates to:
+  /// **'Cairo'**
+  String get cairo;
+
+  /// No description provided for @egypt.
+  ///
+  /// In en, this message translates to:
+  /// **'Egypt'**
+  String get egypt;
+
+  /// No description provided for @en.
+  ///
+  /// In en, this message translates to:
+  /// **'En'**
+  String get en;
+
+  /// No description provided for @ar.
+  ///
+  /// In en, this message translates to:
+  /// **'Ar'**
+  String get ar;
+
+  /// No description provided for @workshop.
+  ///
+  /// In en, this message translates to:
+  /// **'WorkShop'**
+  String get workshop;
+
+  /// No description provided for @searchforevent.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for Event'**
+  String get searchforevent;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @createevent.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Event'**
+  String get createevent;
 }
 
 class _AppLocalizationsDelegate

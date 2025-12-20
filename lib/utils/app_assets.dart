@@ -38,5 +38,7 @@ class AppAssets {
   static const String HomeSelected='assets/icons/Home 1_Selected (1).png';
   static const String MapPinSelected='assets/icons/Map_Pin_Selected.png';
   static const String UserSelected='assets/icons/User_01_Selected (1).png';
+  static const String marzt="assets/images/marzt.jpg";
+  static const String route="assets/images/Rectangle 76-1.png";
 
 }
