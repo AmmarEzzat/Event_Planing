@@ -469,6 +469,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create Event'**
   String get createevent;
+
+  /// No description provided for @title.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get title;
+
+  /// No description provided for @chooseTime.
+  ///
+  /// In en, this message translates to:
+  /// **'chooseTime'**
+  String get chooseTime;
+
+  /// No description provided for @pleaseentereventdescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Enter Event Description'**
+  String get pleaseentereventdescription;
+
+  /// No description provided for @pleaseentereventtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Enter Event Title'**
+  String get pleaseentereventtitle;
 }
 
 class _AppLocalizationsDelegate

@@ -197,4 +197,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get createevent => 'Create Event';
+
+  @override
+  String get title => 'Title';
+
+  @override
+  String get chooseTime => 'chooseTime';
+
+  @override
+  String get pleaseentereventdescription => 'Please Enter Event Description';
+
+  @override
+  String get pleaseentereventtitle => 'Please Enter Event Title';
 }

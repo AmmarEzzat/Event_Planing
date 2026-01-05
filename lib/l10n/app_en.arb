@@ -60,6 +60,11 @@
   "workshop": "WorkShop",
   "searchforevent":"Search for Event",
   "logout":"Logout",
-  "createevent": "Create Event"
+  "createevent": "Create Event",
+  "title": "Title",
+  "chooseTime": "chooseTime",
+  "pleaseentereventdescription": "Please Enter Event Description",
+  "pleaseentereventtitle": "Please Enter Event Title"
+
 
 }

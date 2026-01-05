@@ -9,15 +9,19 @@ class CustomTextField extends StatelessWidget {
   String? labelText;
   Widget? suffixIcon;
   Widget? prefixIcon;
-
+  TextEditingController?controller;
+int? maxLines;
   TextStyle? hintStyle;
   TextStyle? labelStyle;
   TextStyle? style;
 bool obscuretext;
+  String? Function(String?)? validator;
   CustomTextField({
     super.key,
     this.borderColor,
     this.hintStyle,
+    this.controller,
+    this.validator,
     required this.hintText,
     this.labelText,
     this.prefixIcon,
@@ -25,6 +29,7 @@ bool obscuretext;
     this.labelStyle,
     this.style,
     this.obscuretext=false,
+    this.maxLines
   });
 
   @override
@@ -33,7 +38,8 @@ bool obscuretext;
       cursorColor: AppColors.blackColor,
        style: style ?? AppStyles.semi16black,
 obscureText: obscuretext,
-
+validator: validator,
+maxLines:maxLines ,
       decoration: InputDecoration(
 
         hintText: hintText,
@@ -45,7 +51,7 @@ obscureText: obscuretext,
 
         hintStyle: hintStyle ?? AppStyles.semi16grey,
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16,),
 
           borderSide: BorderSide(
             color: borderColor ?? AppColors.gryColor,
@@ -53,7 +59,9 @@ obscureText: obscuretext,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16,
+
+          ),
 
           borderSide: BorderSide(color: AppColors.redColor, width: 2),
         ),

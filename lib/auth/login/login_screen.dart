@@ -44,7 +44,7 @@ class LoginScreen extends StatelessWidget {
               ),
               SizedBox(height: height * 0.02),
               CustomTextField(
-                obscuretext: true,
+             obscuretext: false,
                 borderColor: AppColors.gryColor,
                 hintText: AppLocalizations.of(context)!.password,
                 prefixIcon: Icon(Icons.lock, color: AppColors.gryColor),

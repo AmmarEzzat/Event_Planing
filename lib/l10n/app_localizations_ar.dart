@@ -197,4 +197,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get createevent => 'انشاء حدث';
+
+  @override
+  String get title => 'عنوان';
+
+  @override
+  String get chooseTime => 'اختر الوقت';
+
+  @override
+  String get pleaseentereventdescription => 'الرجاء إدخال وصف الحدث';
+
+  @override
+  String get pleaseentereventtitle => 'Please Enter Event Title';
 }

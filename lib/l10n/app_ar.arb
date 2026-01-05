@@ -60,6 +60,11 @@
   "workshop": "ورشة عمل",
   "searchforevent":"البحث عن الحدث",
   "logout":"تسجيل الخروج",
-  "createevent": "انشاء حدث"
+  "createevent": "انشاء حدث",
+  "title": "عنوان",
+  "chooseTime": "اختر الوقت",
+  "pleaseentereventdescription": "الرجاء إدخال وصف الحدث",
+
+  "pleaseentereventTitle": "الرجاء إدخال عنوان الحدث"
 
 }

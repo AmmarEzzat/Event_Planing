@@ -40,5 +40,10 @@ class AppAssets {
   static const String UserSelected='assets/icons/User_01_Selected (1).png';
   static const String marzt="assets/images/marzt.jpg";
   static const String route="assets/images/Rectangle 76-1.png";
+  static const String Iconnoteedit="assets/icons/Note_Edit.png";
+    static const String IconDate="assets/icons/Calendar_Days.png";
+  static const String IconTime="assets/icons/icontime.png";
+
+
 
 }
