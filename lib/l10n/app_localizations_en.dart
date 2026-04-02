@@ -209,4 +209,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pleaseentereventtitle => 'Please Enter Event Title';
+
+  @override
+  String get noeventsfound => 'No Events Found';
 }

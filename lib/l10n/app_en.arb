@@ -64,7 +64,8 @@
   "title": "Title",
   "chooseTime": "chooseTime",
   "pleaseentereventdescription": "Please Enter Event Description",
-  "pleaseentereventtitle": "Please Enter Event Title"
+  "pleaseentereventtitle": "Please Enter Event Title",
+  "noeventsfound": "No Events Found"
 
 
 }

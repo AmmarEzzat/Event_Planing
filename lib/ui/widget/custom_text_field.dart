@@ -35,6 +35,7 @@ bool obscuretext;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       cursorColor: AppColors.blackColor,
        style: style ?? AppStyles.semi16black,
 obscureText: obscuretext,

@@ -1,3 +1,4 @@
+
 import 'package:evently/utils/app_Colors.dart';
 import 'package:flutter/material.dart';
 
@@ -62,6 +63,8 @@ class TabEventWidget extends StatelessWidget {
                 eventName,
                 style: isSelected ? textSelectedStyle : textUnSelectedStyle,
               ),
+
+
             ],
           ),
         ),
@@ -69,3 +72,4 @@ class TabEventWidget extends StatelessWidget {
     );
   }
 }
+

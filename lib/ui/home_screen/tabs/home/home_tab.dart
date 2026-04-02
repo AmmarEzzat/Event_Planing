@@ -1,10 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evently/firebase_utils.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/model/event.dart';
+import 'package:evently/providers/event_list_provider.dart';
 import 'package:evently/ui/home_screen/tabs/home/event_item_widget.dart';
 import 'package:evently/ui/home_screen/tabs/home/tab_event_widget.dart';
+
 import 'package:evently/utils/app_Colors.dart';
 import 'package:evently/utils/app_Styles.dart';
 import 'package:evently/utils/app_assets.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeTab extends StatefulWidget {
   @override
@@ -12,10 +18,13 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
-  int Selectedindex = 0;
-
   @override
   Widget build(BuildContext context) {
+    var eventListProvider = Provider.of<EventListProvider>(context);
+
+    if (eventListProvider.eventsList.isEmpty) {
+      eventListProvider.getAllEvents();
+    }
     List<String> eventsNameList = [
       AppLocalizations.of(context)!.all,
       AppLocalizations.of(context)!.sport,
@@ -32,7 +41,6 @@ class _HomeTabState extends State<HomeTab> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         title: Row(
@@ -107,24 +115,23 @@ class _HomeTabState extends State<HomeTab> {
                     length: eventsNameList.length,
                     child: TabBar(
                       onTap: (index) {
-
-                        Selectedindex = index;
-                        setState(() {});
+                        eventListProvider.changeSelectedEvent(index);
                       },
                       isScrollable: true,
                       tabAlignment: TabAlignment.start,
                       padding: EdgeInsets.symmetric(horizontal: width * 0.01),
                       labelPadding: EdgeInsets.zero,
                       indicatorColor: AppColors.transparentColor,
+
                       dividerColor: AppColors.transparentColor,
 
                       tabs: eventsNameList.map((eventName) {
                         return TabEventWidget(
-backgroundColor: AppColors.whiteColor,
-                          textSelectedStyle:AppStyles.semi16Primary ,
+                          backgroundColor: AppColors.whiteColor,
+                          textSelectedStyle: AppStyles.semi16Primary,
                           textUnSelectedStyle: AppStyles.semi16white,
                           isSelected:
-                              Selectedindex ==
+                              eventListProvider.Selectedindex ==
                               eventsNameList.indexOf(eventName),
                           eventName: eventName,
                         );
@@ -136,14 +143,21 @@ backgroundColor: AppColors.whiteColor,
             ),
           ),
           Expanded(
-            child: Padding(
-              padding:  EdgeInsets.symmetric(horizontal:   width * 0.04,),
-              child: ListView.builder(itemCount: 10,
-                itemBuilder: (context, index) {
-                  return EventItemWidget();
-                },
-              ),
-            ),
+            child: eventListProvider.filterEventList.isEmpty
+                ? Center(
+                    child: Text(AppLocalizations.of(context)!.noeventsfound),
+                  )
+                : Padding(
+                    padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+                    child: ListView.builder(
+                      itemCount: eventListProvider.filterEventList.length,
+                      itemBuilder: (context, index) {
+                        return EventItemWidget(
+                          event: eventListProvider.filterEventList[index],
+                        );
+                      },
+                    ),
+                  ),
           ),
         ],
       ),

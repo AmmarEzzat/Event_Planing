@@ -48,7 +48,8 @@ prefixIcon: Icon(Icons.search,color: AppColors.primaryLight,),
                 padding:  EdgeInsets.symmetric(horizontal:   width * 0.04,),
                 child: ListView.builder(itemCount: 10,
                   itemBuilder: (context, index) {
-                    return EventItemWidget();
+                    return Container() ;
+                      //EventItemWidget();
                   },
                 ),
               ),

@@ -493,6 +493,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please Enter Event Title'**
   String get pleaseentereventtitle;
+
+  /// No description provided for @noeventsfound.
+  ///
+  /// In en, this message translates to:
+  /// **'No Events Found'**
+  String get noeventsfound;
 }
 
 class _AppLocalizationsDelegate

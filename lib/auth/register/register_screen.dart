@@ -63,25 +63,34 @@ class RegisterScreen extends StatelessWidget {
                 hintText: AppLocalizations.of(context)!.rePassword,
               ),
               SizedBox(height: height * 0.02),
-              CustomElevatedButton(text: AppLocalizations.of(context)!.createAccount, onbuttonClicked: (){
-
-                //create account
-              }),
+              CustomElevatedButton(
+                text: AppLocalizations.of(context)!.createAccount,
+                onbuttonClicked: () {
+                  //create account
+                },
+              ),
               SizedBox(height: height * 0.02),
 
-              Row(mainAxisAlignment: MainAxisAlignment.center,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
-                  Text(AppLocalizations.of(context)!.alreadyHaveAccount,style: AppStyles.semi16black,),
-                  InkWell(
-                      onTap: (){
-                        Navigator.of(context).pushReplacementNamed(LoginScreen.route);
-                      },
-                      child: Text(AppLocalizations.of(context)!.login,style: AppStyles.bold16Primary,)
+                  Text(
+                    AppLocalizations.of(context)!.alreadyHaveAccount,
+                    style: AppStyles.semi16black,
                   ),
-
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(
+                        context,
+                      ).pushReplacementNamed(LoginScreen.route);
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)!.login,
+                      style: AppStyles.bold16Primary,
+                    ),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
