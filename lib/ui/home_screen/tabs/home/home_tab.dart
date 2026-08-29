@@ -1,11 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:evently/firebase_utils.dart';
 import 'package:evently/l10n/app_localizations.dart';
-import 'package:evently/model/event.dart';
 import 'package:evently/providers/event_list_provider.dart';
+import 'package:evently/providers/user_provider.dart';
 import 'package:evently/ui/home_screen/tabs/home/event_item_widget.dart';
 import 'package:evently/ui/home_screen/tabs/home/tab_event_widget.dart';
-
 import 'package:evently/utils/app_Colors.dart';
 import 'package:evently/utils/app_Styles.dart';
 import 'package:evently/utils/app_assets.dart';
@@ -20,23 +17,14 @@ class HomeTab extends StatefulWidget {
 class _HomeTabState extends State<HomeTab> {
   @override
   Widget build(BuildContext context) {
-    var eventListProvider = Provider.of<EventListProvider>(context);
 
+    var eventListProvider = Provider.of<EventListProvider>(context);
+eventListProvider.getEventNameList(context);
+    var userProvider=Provider.of<UserProvider>(context);
     if (eventListProvider.eventsList.isEmpty) {
-      eventListProvider.getAllEvents();
+      eventListProvider.getAllEvents(userProvider.currentUser!.id);
     }
-    List<String> eventsNameList = [
-      AppLocalizations.of(context)!.all,
-      AppLocalizations.of(context)!.sport,
-      AppLocalizations.of(context)!.birthday,
-      AppLocalizations.of(context)!.meeting,
-      AppLocalizations.of(context)!.gaming,
-      AppLocalizations.of(context)!.workshop,
-      AppLocalizations.of(context)!.bookClub,
-      AppLocalizations.of(context)!.exhibition,
-      AppLocalizations.of(context)!.holiday,
-      AppLocalizations.of(context)!.eating,
-    ];
+
 
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
@@ -54,7 +42,7 @@ class _HomeTabState extends State<HomeTab> {
                   style: AppStyles.semi16white,
                 ),
 
-                Text("AmmarEzzat", style: AppStyles.bold24white),
+                Text(userProvider.currentUser!.name, style: AppStyles.bold24white),
                 SizedBox(height: height * 0.01),
               ],
             ),
@@ -112,10 +100,10 @@ class _HomeTabState extends State<HomeTab> {
 
                   SizedBox(height: height * 0.02),
                   DefaultTabController(
-                    length: eventsNameList.length,
+                    length: eventListProvider.eventsNameList.length,
                     child: TabBar(
                       onTap: (index) {
-                        eventListProvider.changeSelectedEvent(index);
+                        eventListProvider.changeSelectedEvent(index,userProvider.currentUser!.id);
                       },
                       isScrollable: true,
                       tabAlignment: TabAlignment.start,
@@ -125,14 +113,14 @@ class _HomeTabState extends State<HomeTab> {
 
                       dividerColor: AppColors.transparentColor,
 
-                      tabs: eventsNameList.map((eventName) {
+                      tabs: eventListProvider.eventsNameList.map((eventName) {
                         return TabEventWidget(
                           backgroundColor: AppColors.whiteColor,
                           textSelectedStyle: AppStyles.semi16Primary,
                           textUnSelectedStyle: AppStyles.semi16white,
                           isSelected:
                               eventListProvider.Selectedindex ==
-                              eventsNameList.indexOf(eventName),
+                                  eventListProvider.eventsNameList.indexOf(eventName),
                           eventName: eventName,
                         );
                       }).toList(),

@@ -14,9 +14,14 @@ class Event {  //data class , model
   bool isFavorite;
   DateTime dateTime;
   String eventName;
+  double lat;
+  double long;
   Event({this.id="",required this.title,required this.description,
     required this.date,required this.time,required this.image,
-    this.isFavorite=false,required this.dateTime,required this.eventName});
+    this.isFavorite=false,required this.dateTime,required this.eventName
+  ,this.lat=0,this.long=0
+
+  });
 
 
 
@@ -32,6 +37,8 @@ Event.fromFireStore(Map<String,dynamic>data):this(
   title: data["title"]?? "",
   isFavorite: data["isfavorite"]?? false,
   id: data["id"]?? "",
+  lat: data["lat"]?? 0,
+  long: data["long"]?? 0,
 
 );
 
@@ -51,13 +58,15 @@ Event.fromFireStore(Map<String,dynamic>data):this(
       "isfavorite":isFavorite,
       "datetime":dateTime.millisecondsSinceEpoch,
       "eventname":eventName,
+      "lat":lat,
+      "long":long,
 
     };
 
 
 }
-  void debugAllEvents() async {
-    var snapshot = await FirebaseUtils.getEventCollection().get();
+  void debugAllEvents(String uId) async {
+    var snapshot = await FirebaseUtils.getEventCollection(uId).get();
 
     for (var doc in snapshot.docs) {
       print("RAW: ${doc.data().toFireStore()}");

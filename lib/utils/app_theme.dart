@@ -12,6 +12,8 @@ class AppTheme {
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: AppColors.primaryLight,
+      foregroundColor: AppColors.whiteColor,
+      elevation: 0,
       shape: StadiumBorder(
 
         side: BorderSide(color: AppColors.whiteColor, width: 8),

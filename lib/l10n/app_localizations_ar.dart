@@ -208,7 +208,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get pleaseentereventdescription => 'الرجاء إدخال وصف الحدث';
 
   @override
-  String get pleaseentereventtitle => 'Please Enter Event Title';
+  String get pleaseentereventtitle => 'الرجاء إدخال عنوان الحدث';
 
   @override
   String get noeventsfound => 'لا يوجد فعاليات ';

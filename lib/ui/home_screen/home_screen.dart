@@ -1,4 +1,5 @@
 import 'package:evently/l10n/app_localizations.dart';
+
 import 'package:evently/ui/home_screen/tabs/home/add_event/add_event.dart';
 import 'package:evently/ui/home_screen/tabs/home/home_tab.dart';
 import 'package:evently/ui/home_screen/tabs/love/Favorite_Tab.dart';
@@ -6,6 +7,7 @@ import 'package:evently/ui/home_screen/tabs/map/Map_Tab.dart';
 import 'package:evently/ui/home_screen/tabs/profile/profile_tab.dart';
 import 'package:evently/utils/app_Colors.dart';
 import 'package:flutter/material.dart';
+
 
 import '../../utils/app_assets.dart';
 
@@ -22,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
 
       bottomNavigationBar:

@@ -3,6 +3,10 @@ import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/model/event.dart';
 import 'package:evently/providers/app_language_provider.dart';
 import 'package:evently/providers/event_list_provider.dart';
+import 'package:evently/providers/location_provider.dart';
+import 'package:evently/providers/user_provider.dart';
+import 'package:evently/ui/home_screen/home_screen.dart';
+import 'package:evently/ui/home_screen/tabs/home/add_event/pick_location_screen.dart';
 import 'package:evently/ui/home_screen/tabs/home/tab_event_widget.dart';
 import 'package:evently/ui/widget/choose_date_or_time.dart';
 import 'package:evently/ui/widget/custom_elevated_button.dart';
@@ -14,7 +18,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../../providers/event_list_provider.dart';
+
 import '../../../../../utils/app_Colors.dart';
 
 class AddEvent extends StatefulWidget {
@@ -28,7 +32,7 @@ class AddEvent extends StatefulWidget {
 
 class _AddEventState extends State<AddEvent> {
   var formkey = GlobalKey<FormState>();
-  int selectedIndex = 0;
+
   String formatedDate = ""; //save date;
   DateTime? selectedDate;
 
@@ -42,20 +46,10 @@ class _AddEventState extends State<AddEvent> {
 
   @override
   Widget build(BuildContext context) {
+    eventListProvider = Provider.of<EventListProvider>(context);
+    eventListProvider.getEventNameList(context);
+    eventListProvider.eventsNameList.removeAt(0);
 
-     eventListProvider=Provider.of<EventListProvider>(context);
-
-    List<String> eventsNameList = [
-      AppLocalizations.of(context)!.sport,
-      AppLocalizations.of(context)!.birthday,
-      AppLocalizations.of(context)!.meeting,
-      AppLocalizations.of(context)!.gaming,
-      AppLocalizations.of(context)!.workshop,
-      AppLocalizations.of(context)!.bookClub,
-      AppLocalizations.of(context)!.exhibition,
-      AppLocalizations.of(context)!.holiday,
-      AppLocalizations.of(context)!.eating,
-    ];
     List<String> imageSelectedNameList = [
       AppAssets.EventSport1,
       AppAssets.EventBirthday1,
@@ -67,8 +61,10 @@ class _AddEventState extends State<AddEvent> {
       AppAssets.EventHoliday1,
       AppAssets.EventEating1,
     ];
-    selectedImage = imageSelectedNameList[selectedIndex]; //save images ;
-    selectedEvent = eventsNameList[selectedIndex]; //save events ;
+    selectedImage =
+        imageSelectedNameList[eventListProvider.Selectedindex]; //save images ;
+    selectedEvent = eventListProvider
+        .eventsNameList[eventListProvider.Selectedindex]; //save events ;
     // print("selectedEvent $selectedEvent");
     // print("selectedImage $selectedImage");
     //     List<String>iconSelectedNameList=[
@@ -88,6 +84,10 @@ class _AddEventState extends State<AddEvent> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     var languageprovider = Provider.of<AppLanguageProvider>(context);
+   var provider=Provider.of<LocationProvider>(context);
+var userProvider=Provider.of<UserProvider>(context);
+
+
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -100,219 +100,233 @@ class _AddEventState extends State<AddEvent> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Padding(
-              padding: EdgeInsetsGeometry.symmetric(
-                horizontal: width * 0.03,
-                vertical: height * 0.009,
-              ),
-              child: Container(
+        child:Padding(
+          padding: EdgeInsetsGeometry.symmetric(
+            horizontal: width * 0.03,
+            vertical: height * 0.009,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Image.asset(selectedImage, height: height * 0.24),
               ),
-            ),
 
-            Container(
-              height: height * 00.08,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    radius: 1,
-                    onTap: () {
-                      selectedIndex = index;
+              Container(
+                height: height * 00.08,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      radius: 1,
+                      onTap: () {
+                        eventListProvider.changeSelectedEvent(index,userProvider.currentUser!.id);
+                      },
+                      child: TabEventWidget(
+                        isSelected: eventListProvider.Selectedindex == index,
 
-                      setState(() {});
-                    },
-                    child: TabEventWidget(
-                      isSelected: selectedIndex == index,
-
-                      eventName: eventsNameList[index],
-                      backgroundColor: AppColors.primaryLight,
-                      borderColor: AppColors.primaryLight,
-                      textSelectedStyle: AppStyles.semi16white,
-                      textUnSelectedStyle: AppStyles.semi16Primary,
-
-                    ),
-                  );
-                },
-                itemCount: eventsNameList.length,
+                        eventName: eventListProvider.eventsNameList[index],
+                        backgroundColor: AppColors.primaryLight,
+                        borderColor: AppColors.primaryLight,
+                        textSelectedStyle: AppStyles.semi16white,
+                        textUnSelectedStyle: AppStyles.semi16Primary,
+                      ),
+                    );
+                  },
+                  itemCount: eventListProvider.eventsNameList.length,
+                ),
               ),
-            ),
-            Form(
-              key: formkey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.02),
-                    child: Text(
-                      AppLocalizations.of(context)!.title,
-                      style: AppStyles.semi16black,
-                    ),
-                  ),
-                  SizedBox(height: height * 0.01),
-                  Padding(
-                    padding: EdgeInsets.all(8),
-                    child: CustomTextField(
-                      controller: titleController,
-                      validator: (text) {
-                        if (text == null || text.isEmpty) {
-                          return AppLocalizations.of(context)!.pleaseentereventtitle;
-
-
-                        }
-                        return null;
-                      },
-                      hintText: AppLocalizations.of(context)!.eventTitle,
-                      style: AppStyles.semi16grey,
-                      prefixIcon: Image.asset(AppAssets.Iconnoteedit),
-                    ),
-                  ),
-                  SizedBox(height: height * 0.01),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.02),
-                    child: Text(
-                      AppLocalizations.of(context)!.description,
-                      style: AppStyles.semi16black,
-                    ),
-                  ),
-                  SizedBox(height: height * 0.01),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CustomTextField(
-                      controller: descriptionController,
-                      validator: (text) {
-                        if (text == null || text.isEmpty) {
-                          return AppLocalizations.of(context)!.pleaseentereventdescription;
-
-
-                        }
-                        return null;
-                      },
-                      hintText: AppLocalizations.of(context)!.eventDescription,
-                      style: AppStyles.semi16grey,
-                      maxLines: 4,
-                    ),
-                  ),
-                  SizedBox(height: height * 0.01),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-
-                    child: ChooseDateOrTime(
-                      iconName: AppAssets.IconDate,
-                      eventDateOrTime: AppLocalizations.of(context)!.eventDate,
-                      onChooseDateOrTimeClicked: chooseDate,
-                      chooseDateOrTime: selectedDate == null
-                          ? AppLocalizations.of(context)!.chooseDate
-                          :DateFormat("dd/MMM/yyyy").format(selectedDate!),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-
-                    child: ChooseDateOrTime(
-                      iconName: AppAssets.IconTime,
-                      eventDateOrTime: AppLocalizations.of(context)!.eventTime,
-                      onChooseDateOrTimeClicked: chooseTime,
-                      chooseDateOrTime: selectedTime == null
-                          ? AppLocalizations.of(context)!.chooseTime
-                          : formatedTime,
-                    ),
-                  ),
-
-                  SizedBox(height: height * 0.01),
-
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: width * 0.02),
-                    child: Text(
-                      AppLocalizations.of(context)!.location,
-                      style: AppStyles.semi16black,
-                    ),
-                  ),
-
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: height * 0.02,
-                        horizontal: width * 0.02,
+              Form(
+                key: formkey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.02),
+                      child: Text(
+                        AppLocalizations.of(context)!.title,
+                        style: AppStyles.semi16black,
                       ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: width * 0.02,
-                        vertical: height * 0.01,
+                    ),
+                    SizedBox(height: height * 0.01),
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: CustomTextField(
+                        controller: titleController,
+                        validator: (text) {
+                          if (text == null || text.isEmpty) {
+                            return AppLocalizations.of(
+                              context,
+                            )!.pleaseentereventtitle;
+                          }
+                          return null;
+                        },
+                        hintText: AppLocalizations.of(context)!.eventTitle,
+                        style: AppStyles.semi16grey,
+                        prefixIcon: Image.asset(AppAssets.Iconnoteedit),
                       ),
+                    ),
+                    SizedBox(height: height * 0.01),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.02),
+                      child: Text(
+                        AppLocalizations.of(context)!.description,
+                        style: AppStyles.semi16black,
+                      ),
+                    ),
+                    SizedBox(height: height * 0.01),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: CustomTextField(
+                        controller: descriptionController,
+                        validator: (text) {
+                          if (text == null || text.isEmpty) {
+                            return AppLocalizations.of(
+                              context,
+                            )!.pleaseentereventdescription;
+                          }
+                          return null;
+                        },
+                        hintText: AppLocalizations.of(context)!.eventDescription,
+                        style: AppStyles.semi16grey,
+                        maxLines: 4,
+                      ),
+                    ),
+                    SizedBox(height: height * 0.01),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.04),
 
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
+                      child: ChooseDateOrTime(
+                        iconName: AppAssets.IconDate,
+                        eventDateOrTime: AppLocalizations.of(context)!.eventDate,
+                        onChooseDateOrTimeClicked: chooseDate,
+                        chooseDateOrTime: selectedDate == null
+                            ? AppLocalizations.of(context)!.chooseDate
+                            : DateFormat("dd/MMM/yyyy").format(selectedDate!),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.04),
 
-                        border: Border.all(
-                          color: AppColors.primaryLight,
-                          width: 2,
+                      child: ChooseDateOrTime(
+                        iconName: AppAssets.IconTime,
+                        eventDateOrTime: AppLocalizations.of(context)!.eventTime,
+                        onChooseDateOrTimeClicked: chooseTime,
+                        chooseDateOrTime: selectedTime == null
+                            ? AppLocalizations.of(context)!.chooseTime
+                            : formatedTime,
+                      ),
+                    ),
+
+                    SizedBox(height: height * 0.01),
+
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: width * 0.02),
+                      child: Text(
+                        AppLocalizations.of(context)!.location,
+                        style: AppStyles.semi16black,
+                      ),
+                    ),
+
+                    InkWell(
+                      onTap: () {
+
+  Navigator.pushNamed(context, PickLocationScreen.route,arguments: provider);
+
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: height * 0.02,
+                          horizontal: width * 0.02,
                         ),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: width * 0.02,
-                              vertical: height * 0.01,
-                            ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: width * 0.02,
+                          vertical: height * 0.01,
+                        ),
 
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+
+                          border: Border.all(
+                            color: AppColors.primaryLight,
+                            width: 2,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: width * 0.02,
+                                vertical: height * 0.01,
+                              ),
+
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: AppColors.primaryLight,
+                              ),
+                              child: Image.asset(AppAssets.iconsLocationChoose),
+                            ),
+                            SizedBox(width: width * 0.02),
+                            Expanded(
+                              child: Text(
+                                provider.eventLocation == null
+                                    ? AppLocalizations.of(context)!
+                                    .chooseEventLocation
+                                    : "location${provider.eventLocation!
+                                    .latitude}:${provider.eventLocation!
+                                    .longitude}",
+                                style: AppStyles.semi16Primary,
+                              ),
+                            ),
+                            Spacer(),
+                            Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              size: 25,
                               color: AppColors.primaryLight,
                             ),
-                            child: Image.asset(AppAssets.iconsLocationChoose),
-                          ),
-                          SizedBox(width: width * 0.02),
-                          Text(
-                            AppLocalizations.of(context)!.chooseEventLocation,
-                            style: AppStyles.semi16Primary,
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            size: 25,
-                            color: AppColors.primaryLight,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: height * 0.01),
-                  Container(
-
-                    margin: EdgeInsets.symmetric(
-                      horizontal: width * 0.02,
-                      vertical: height * 0.002,
+                    SizedBox(height: height * 0.01),
+                    Container(
+                      margin: EdgeInsets.symmetric(
+                        horizontal: width * 0.02,
+                        vertical: height * 0.002,
+                      ),
+                      child: CustomElevatedButton(
+                        text: AppLocalizations.of(context)!.addEvent,
+                        backgroundColor: AppColors.primaryLight,
+                        onbuttonClicked: addEvent,
+                      ),
                     ),
-                    child: CustomElevatedButton(
-
-                      text: AppLocalizations.of(context)!.addEvent,
-                      backgroundColor: AppColors.primaryLight,
-                      onbuttonClicked: addEvent,
-                    ),
-                  ),
-                  SizedBox(height: height * 0.01),
-                ],
+                    SizedBox(height: height * 0.01),
+                  ],
+                ),
               ),
-            ),
-            SizedBox(height: height * 0.05),
-          ],
+              SizedBox(height: height * 0.05),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  void addEvent() {
+  Future <void> addEvent() async {
+    var provider=Provider.of<LocationProvider>(context,listen: false);
+
     if (formkey.currentState?.validate() == true) {
-      if (selectedDate == null || selectedTime == null) {
+      if (selectedDate == null || selectedTime == null) {}
+      if (provider.eventLocation==null){
+        Fluttertoast.showToast(msg: "Location is Required",
+
+
+        );
+        return;
 
       }
 
@@ -324,19 +338,38 @@ class _AddEventState extends State<AddEvent> {
         image: selectedImage,
         dateTime: selectedDate!,
         eventName: selectedEvent,
+lat: provider.eventLocation?.latitude??0,
+        long: provider.eventLocation?.longitude??0,
       );
+var userProvider=Provider.of<UserProvider>(context,listen: false);
 
-      FirebaseUtils.addEventToFireStore(event).timeout(
+      FirebaseUtils.addEventToFireStore(event ,userProvider.currentUser!.id)
+          .then((value){
+
+        Fluttertoast.showToast(
+          backgroundColor: AppColors.whiteColor,
+          textColor: AppColors.blackColor,
+          gravity: ToastGravity.BOTTOM,
+          msg: "event added successfully",
+
+        );
+        eventListProvider.getAllEvents(userProvider.currentUser!.id);
+        Navigator.pushReplacementNamed(context, HomeScreen.route);
+
+
+      })
+          
+          .timeout(
         Duration(milliseconds: 500),
         onTimeout: () {
-
           Fluttertoast.showToast(
-              backgroundColor: AppColors.whiteColor,
-              textColor: AppColors.blackColor,
-              gravity: ToastGravity.BOTTOM,
-              msg: "event added successfully");
+            backgroundColor: AppColors.whiteColor,
+            textColor: AppColors.blackColor,
+            gravity: ToastGravity.BOTTOM,
+            msg: "event added successfully",
+          );
 
-eventListProvider.getAllEvents();
+          eventListProvider.getAllEvents(userProvider.currentUser!.id);
           Navigator.pop(context);
 
           return;
@@ -355,10 +388,7 @@ eventListProvider.getAllEvents();
     if (choosedate == null) return;
     selectedDate = choosedate;
     formatedDate = DateFormat("dd/MMM/yyyy").format(choosedate);
-    setState(() {
-
-    });
-
+    setState(() {});
   }
 
   void chooseTime() async {
@@ -370,11 +400,6 @@ eventListProvider.getAllEvents();
     selectedTime = chooseTime;
 
     formatedTime = selectedTime!.format(context);
-    setState(() {
-
-    });
+    setState(() {});
   }
-
-
-
 }
