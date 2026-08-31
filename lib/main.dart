@@ -12,6 +12,7 @@ import 'package:evently/ui/home_screen/home_screen.dart';
 import 'package:evently/ui/home_screen/tabs/home/add_event/add_event.dart';
 import 'package:evently/ui/home_screen/tabs/home/add_event/pick_location_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 import 'l10n/app_localizations.dart';
@@ -25,6 +26,10 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await GoogleSignIn.instance.initialize(
+    serverClientId:
+    '220792501070-lnesu2e10l5v06g850bbp1u1e357t9c6.apps.googleusercontent.com',
   );
   // await FirebaseFirestore.instance.disableNetwork(); //offline
   runApp(
@@ -53,7 +58,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       locale: Locale(languageprovider.appLanguage),
-      initialRoute: LoginScreen.route,
+      initialRoute: Splash.route,
 
       routes: {
         LoginScreen.route:(context)=>LoginScreen(),

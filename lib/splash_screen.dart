@@ -1,8 +1,15 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evently/auth/login/login_screen.dart';
+import 'package:evently/firebase_utils.dart';
+import 'package:evently/model/my_user.dart';
+import 'package:evently/providers/user_provider.dart';
 import 'package:evently/ui/home_screen/home_screen.dart';
 import 'package:evently/ui/home_screen/tabs/profile/profile_tab.dart';
 import 'package:evently/utils/app_assets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Splash extends StatefulWidget {
   static const String route="Splash";
@@ -18,19 +25,61 @@ class _SplashScreenState extends State<Splash> {
   @override
   void initState() {
     super.initState();
+    checkUser();
+  }
+  Future<void> checkUser() async {
+
+    await Future.delayed(const Duration(seconds: 2));
 
 
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
+    if (!mounted) return;
+
+    final firebaseUser = FirebaseAuth.instance.currentUser;
+
+    if (firebaseUser == null) {
+      Navigator.pushReplacementNamed(
         context,
-        MaterialPageRoute(builder: (context) =>  HomeScreen()),
+        LoginScreen.route,
       );
-    });
+      return;
+    }
+
+    final myUser = await FirebaseUtils.readUserFromFireStore(
+      firebaseUser.uid,
+    );
+
+
+    if (myUser != null) {
+
+    }
+
+    if (myUser == null) {
+
+
+      Navigator.pushReplacementNamed(
+        context,
+        LoginScreen.route,
+      );
+      return;
+    }
+
+    final userProvider = context.read<UserProvider>();
+
+
+
+    userProvider.updateUser(myUser);
+
+
+
+    Navigator.pushReplacementNamed(
+      context,
+      HomeScreen.route,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-
+    var userProvider=Provider.of<UserProvider>(context);
     isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
 
     return Scaffold(

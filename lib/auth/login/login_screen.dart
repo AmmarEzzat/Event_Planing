@@ -2,6 +2,8 @@ import 'package:evently/auth/forget_password/forget_password.dart';
 import 'package:evently/auth/register/register_screen.dart';
 import 'package:evently/firebase_utils.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/model/my_user.dart';
+import 'package:evently/model/sign_in_with_google.dart';
 import 'package:evently/providers/app_language_provider.dart';
 import 'package:evently/providers/user_provider.dart';
 import 'package:evently/ui/home_screen/home_screen.dart';
@@ -40,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding:  EdgeInsets.symmetric(horizontal: width*0.02,vertical: height*0.02),
         child: SingleChildScrollView(
           child: Form(
             key: formKey,
@@ -204,7 +206,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: height * 0.02),
                         CustomElevatedButton(
                           onbuttonClicked: () {
-                            // todo:with google
+
+                            logInWithGoogle(context);
+
                           },
                           text: AppLocalizations.of(context)!.loginWithGoogle,
                           backgroundColor: AppColors.whiteColor,
@@ -315,4 +319,84 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
-}
+
+
+  Future<void> logInWithGoogle(BuildContext context) async {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return const AlertDialog(
+          backgroundColor: AppColors.transparentColor,
+          title: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+
+    try {
+
+      final response = await signInWithGoogle();
+
+      final firebaseUser = response.user;
+
+      if (firebaseUser == null) {
+        Navigator.of(context).pop();
+        return;
+      }
+
+
+      MyUser? myUser =
+      await FirebaseUtils.readUserFromFireStore(firebaseUser.uid);
+
+
+      if (myUser == null) {
+        myUser = MyUser(
+          name: firebaseUser.displayName ?? '',
+          email: firebaseUser.email ?? '',
+          id: firebaseUser.uid,
+        );
+
+        await FirebaseUtils.addUserToFireStore(myUser);
+      }
+
+
+      final userProvider = Provider.of<UserProvider>(
+        context,
+        listen: false,
+      );
+
+      userProvider.updateUser(myUser);
+
+      debugPrint(
+        'Firebase User: ${firebaseUser.uid}',
+      );
+
+      debugPrint(
+        'Provider User: ${userProvider.currentUser?.id}',
+      );
+
+
+      if (context.mounted) {
+        Navigator.of(context).pop();
+
+        Navigator.pushReplacementNamed(
+          context,
+          HomeScreen.route,
+        );
+      }
+    } catch (e) {
+      debugPrint(
+        'Google Login Error: $e',
+      );
+
+      if (context.mounted) {
+        Navigator.of(context).pop();
+      }
+    }
+  }
+
+
+
+    }

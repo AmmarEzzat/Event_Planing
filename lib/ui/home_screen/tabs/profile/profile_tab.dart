@@ -1,5 +1,6 @@
 import 'package:evently/auth/login/login_screen.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/model/sign_in_with_google.dart';
 
 import 'package:evently/providers/app_language_provider.dart';
 import 'package:evently/providers/app_theme_provider.dart';
@@ -11,7 +12,9 @@ import 'package:evently/utils/app_Colors.dart';
 import 'package:evently/utils/app_Styles.dart';
 import 'package:evently/utils/app_assets.dart';
 import 'package:evently/utils/app_theme.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -73,9 +76,9 @@ class _ProfileTabState extends State<ProfileTab> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Ammar Ezzat", style: AppStyles.bold24white,),
+                      Text(userProvider.currentUser?.name ?? "", style: AppStyles.bold24white),
 
-                      Text("marzt088@gmail.com", style: AppStyles.semi16white,)
+                      Text(userProvider.currentUser?.email ?? "", style: AppStyles.bold24white),
                     ]
 
 
@@ -210,6 +213,7 @@ class _ProfileTabState extends State<ProfileTab> {
                 )
             ),
             onPressed: () {
+              logout();
               eventListProvider.filterEventList = [];
               Navigator.of(context).pushReplacementNamed(LoginScreen.route);
             },
@@ -239,6 +243,11 @@ class _ProfileTabState extends State<ProfileTab> {
   void ShowThemeBottomSheet() {
     showModalBottomSheet(
       context: context, builder: (context) => ThemeBottomSheet(),);
+  }
+  static Future <void> logout () async{
+
+    final firebaseAuth=FirebaseAuth.instance.signOut();
+    await GoogleSignIn.instance.signOut();
   }
 
 }

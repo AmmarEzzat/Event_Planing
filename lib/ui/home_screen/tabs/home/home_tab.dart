@@ -16,15 +16,25 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final eventListProvider = Provider.of<EventListProvider>(
+        context,
+        listen: false,
+      );
+      final userProvider = Provider.of<UserProvider>(context, listen: false);
+      eventListProvider.getEventNameList(context);
+      if (userProvider.currentUser != null) {
+        eventListProvider.getAllEvents(userProvider.currentUser!.id);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-
-    var eventListProvider = Provider.of<EventListProvider>(context);
-eventListProvider.getEventNameList(context);
-    var userProvider=Provider.of<UserProvider>(context);
-    if (eventListProvider.eventsList.isEmpty) {
-      eventListProvider.getAllEvents(userProvider.currentUser!.id);
-    }
-
+    final eventListProvider = Provider.of<EventListProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
 
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
@@ -42,7 +52,10 @@ eventListProvider.getEventNameList(context);
                   style: AppStyles.semi16white,
                 ),
 
-                Text(userProvider.currentUser!.name, style: AppStyles.bold24white),
+                Text(
+                  userProvider.currentUser!.name,
+                  style: AppStyles.bold24white,
+                ),
                 SizedBox(height: height * 0.01),
               ],
             ),
@@ -103,7 +116,10 @@ eventListProvider.getEventNameList(context);
                     length: eventListProvider.eventsNameList.length,
                     child: TabBar(
                       onTap: (index) {
-                        eventListProvider.changeSelectedEvent(index,userProvider.currentUser!.id);
+                        eventListProvider.changeSelectedEvent(
+                          index,
+                          userProvider.currentUser!.id,
+                        );
                       },
                       isScrollable: true,
                       tabAlignment: TabAlignment.start,
@@ -120,7 +136,9 @@ eventListProvider.getEventNameList(context);
                           textUnSelectedStyle: AppStyles.semi16white,
                           isSelected:
                               eventListProvider.Selectedindex ==
-                                  eventListProvider.eventsNameList.indexOf(eventName),
+                              eventListProvider.eventsNameList.indexOf(
+                                eventName,
+                              ),
                           eventName: eventName,
                         );
                       }).toList(),
